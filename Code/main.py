@@ -10,13 +10,12 @@ import GirNew as GN
 
 from sklearn.metrics.cluster import normalized_mutual_info_score
 
-
 dataset_path = "./datasets/karate.txt"
 nmi_benchmark = "karate" # dolphins / karate / jazz
 #  + izmeni u GirNew broj cvorova
 #  karate  = 35
 #  delfini = 63
-#  jazz    = ?
+#  jazz    = 199 --> izmeni i onaj load_data za splitovanje :)
 
 # Normalized Mutual Information
 def NMI(CommunityPartion, chromosome_length, MA):

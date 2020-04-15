@@ -8,6 +8,7 @@ density_lambda = 0.5
 
 # dolphins = 62
 # karate = 34
+# jazz = 198
 def load_graph(graph, input_file):
     graph.add_nodes_from([x for x in range(1, 35)])
     # u, v
