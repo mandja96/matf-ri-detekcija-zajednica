@@ -58,6 +58,7 @@ def FindNeighbors(chromosome):
                         neighbors[num] = copy.deepcopy(chromosome)
                         neighbors[num][L[i][k]] = chromosome[L[j][0]]
                         num +=1
+
     return neighbors
 
 def FindBest(P, A):

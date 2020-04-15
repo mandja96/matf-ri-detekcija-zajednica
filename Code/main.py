@@ -1,3 +1,7 @@
+# Ideje za implementaciju dobijene sa adresa
+#  https://github.com/newxd/community-detection
+#  https://github.com/kjahan/community
+
 import matplotlib.pyplot as plt
 import networkx as nx
 import numpy as np
@@ -10,8 +14,8 @@ import GirNew as GN
 
 from sklearn.metrics.cluster import normalized_mutual_info_score
 
-dataset_path = "./datasets/karate.txt"
-nmi_benchmark = "karate" # dolphins / karate / jazz
+dataset_path = "./datasets/jazz.txt"
+nmi_benchmark = "jazz" # dolphins / karate / jazz
 #  + izmeni u GirNew broj cvorova
 #  karate  = 35
 #  delfini = 63
@@ -172,13 +176,13 @@ def gn(chromosome_length):
     Orig_deg = {}
     Orig_deg = GN.UpdateDeg(A_girvan, graph.nodes())
     girvan_best = GN.GirvanNewman(graph, A_girvan, Orig_deg, m_)
-    NMI(girvan_best, chromosome_length, MA=False)
+    # NMI(girvan_best, chromosome_length, MA=False)
     plot_graph(girvan_best, MA=False)
 
 if __name__ == '__main__':
     simulated_annealing = False
     CommunityPartion, chromosome_length = MA(simulated_annealing)
     plot_graph(CommunityPartion, MA=True)
-    NMI(CommunityPartion, chromosome_length, MA=True)
+    # NMI(CommunityPartion, chromosome_length, MA=True)
     print("--------------------------------------------")
     gn(chromosome_length)

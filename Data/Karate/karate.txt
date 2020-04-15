@@ -84,7 +84,6 @@ KARATE:
     Nista nije bolje sa porastom/snizavanjem lambda
 
 
-
 DELFINI:
 
 

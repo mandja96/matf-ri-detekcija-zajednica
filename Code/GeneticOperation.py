@@ -4,7 +4,7 @@ import random
 
 # 0.5 is default density
 # smaller than that detects smaller communities
-density_lambda = 0.8
+density_lambda = 0.3
 
 def selection(P, A, pool, tour):
     row,column = P.shape

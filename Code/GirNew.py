@@ -4,20 +4,20 @@ import networkx
 
 # 0.5 is default density
 # smaller than that detects smaller communities
-density_lambda = 0.5
+density_lambda = 0.3
 
 # dolphins = 62
 # karate = 34
 # jazz = 198
 def load_graph(graph, input_file):
-    graph.add_nodes_from([x for x in range(1, 35)])
+    graph.add_nodes_from([x for x in range(1, 199)])
     # u, v
     # u, v, w
     with open(input_file) as f:
         lines = f.read().splitlines()
         for line in lines:
             values = line.split(' ')
-            # values = [x for x in values if x != ''] # ovo je za Jazz 
+            values = [x for x in values if x != ''] # ovo je za Jazz 
             if len(values) == 3:
                 graph.add_edge(int(values[0]), 
                                int(values[1]), 
@@ -94,8 +94,8 @@ def GirvanNewman(G, A, Orig_deg, m_):
     Q = 0.0
     while True:
         GNStep(G)
-        Q = GNGetModularity(G, Orig_deg, m_)
-        # Q = GNGetDensityModularity(G, A, list(networkx.connected_components(G)))
+        # Q = GNGetModularity(G, Orig_deg, m_)
+        Q = GNGetDensityModularity(G, A, list(networkx.connected_components(G)))
         print("Modularity of decomposed G: ", Q)
         if Q>BestQ:
             BestQ = Q
