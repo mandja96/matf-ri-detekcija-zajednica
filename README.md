@@ -14,6 +14,6 @@ Studenti: Aleksandra Nikšić (mi16072) i Anđelka Milovanović (mi15145)
  * https://github.com/carnby/uddvis/tree/master/arenas-jazz
  
  
-### Korišćena biblioteka za rad sa grafovima: NetworkX.
-### Okruženje: Python 3
+#### Korišćena biblioteka za rad sa grafovima: NetworkX
+#### Okruženje: Python 3
  
