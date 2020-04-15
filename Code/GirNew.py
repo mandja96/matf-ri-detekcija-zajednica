@@ -4,12 +4,12 @@ import networkx
 
 # 0.5 is default density
 # smaller than that detects smaller communities
-density_lambda = 0.3
+density_lambda = 0.5
 
 # dolphins = 62
 # karate = 34
 def load_graph(graph, input_file):
-    graph.add_nodes_from([x for x in range(1, 63)])
+    graph.add_nodes_from([x for x in range(1, 35)])
     # u, v
     # u, v, w
     with open(input_file) as f:
@@ -94,7 +94,7 @@ def GirvanNewman(G, A, Orig_deg, m_):
     while True:
         GNStep(G)
         Q = GNGetModularity(G, Orig_deg, m_)
-        Q = GNGetDensityModularity(G, A, list(networkx.connected_components(G)))
+        # Q = GNGetDensityModularity(G, A, list(networkx.connected_components(G)))
         print("Modularity of decomposed G: ", Q)
         if Q>BestQ:
             BestQ = Q
@@ -114,32 +114,18 @@ def GirvanNewman(G, A, Orig_deg, m_):
 # def main():
 #     G = networkx.Graph()
 #     load_graph(G, "./karate.txt")
-
-#     # val_map = {'A': 1.0,
-#     #            'D': 0.5714285714285714,
-#     #            'H': 0.0}
-
-#     # values = [val_map.get(node, 0.25) for node in G.nodes()]
-
-#     networkx.draw(G, with_labels = True, font_color='white')
-#     plt.show()
-    
 #     n = G.number_of_nodes()
 #     print("Number of nodes = {}.".format(n))
-
 #     A = networkx.adj_matrix(G)
 #     # print(adj_matrix)
-
 #     m_ = 0.0
 #     for i in range(n):
 #         for j in range(n):
 #             m_ += A[i, j]
 #     m_ = m_ / 2.0
 #     print("Init modularity = {}.".format(m_))
-
 #     Orig_deg = {}
 #     Orig_deg = UpdateDeg(A, G.nodes())
-
 #     GirvanNewman(G, A, Orig_deg, m_)
 
 # if __name__ == '__main__':

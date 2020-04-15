@@ -11,14 +11,16 @@ import GirNew as GN
 from sklearn.metrics.cluster import normalized_mutual_info_score
 
 
-simulated_annealing = True
-dataset_path = "./datasets/dolphins.txt"
-nmi_benchmark = "dolphins" # dolphins / karate / jazz
+dataset_path = "./datasets/karate.txt"
+nmi_benchmark = "karate" # dolphins / karate / jazz
+#  + izmeni u GirNew broj cvorova
+#  karate  = 35
+#  delfini = 63
+#  jazz    = ?
 
 # Normalized Mutual Information
 def NMI(CommunityPartion, chromosome_length, MA):
     n = chromosome_length
-    print(n)
     current_partition = [x for x in range(0, n)]
     # i - communities, 
     # j - vertices
@@ -27,7 +29,6 @@ def NMI(CommunityPartion, chromosome_length, MA):
     # (8, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33)]
     for i in range(len(CommunityPartion)): 
         CommunityPartion[i] = list(CommunityPartion[i])
-        print(CommunityPartion[i])
         for j in range(len(CommunityPartion[i])): 
             if MA:
                 current_partition[CommunityPartion[i][j]] = i 
@@ -40,6 +41,7 @@ def NMI(CommunityPartion, chromosome_length, MA):
                         1,0,1,1,1,1,1,1,1,1,
                         1,1,1,1]
 
+    # ??? ovo mora da se proveri negde
     benchmark_dolphins = [1,0,1,1,1,0,0,0,1,0,
                           1,1,1,0,1,1,1,0,1,0,
                           1,1,0,1,1,0,0,0,1,1,
@@ -58,14 +60,14 @@ def NMI(CommunityPartion, chromosome_length, MA):
     print('Number of communities: ', len(CommunityPartion))
     print('NMI:', normalized_mutual_info_score(benchmark, current_partition))
 
-def MA():
-    Gm = 1        #maximum numbers of generations
-    Sp = 450      #populaton size
+def MA(simulated_annealing):
+    Gm = 1       #maximum numbers of generations
+    Sp = 100      #populaton size
     Spool = Sp/2  #population of mating pool
     Stour = 2     #number of tournament
     Pc = 0.8      #crossover probability
     Pm = 0.2      #mutate probability
-    Alpha = 0.2   #initial population parameter
+    Alpha = 0.3   #initial population parameter
 
     G=nx.Graph()
     K=nx.Graph()
@@ -78,8 +80,11 @@ def MA():
     chromosome_length = len(G.nodes())
 
     population=buildGraph.initPopulation(G, chromosome_length, Sp, Alpha) # initial population
-    t = 0     # generation numbers
     BestPop = np.zeros([Gm, chromosome_length]) # for each generation one best
+
+    # generation number
+    t = 0     
+
     while t < Gm:
         parents = GO.selection(population, A, Spool, Stour)
         children=GO.CrossoverMutate(G, parents, Pc, Pm)
@@ -93,7 +98,7 @@ def MA():
                 L = LocalSearch.FindNeighbors(Bestchild)
 
                 best = LocalSearch.FindBest(L,A)
-                if GO.fitness(A,best) > GO.fitness(A,Bestchild):
+                if GO.fitness(A,best) > GO.fitness(A, Bestchild):
                     Bestchild = best
                 else:
                     IsLocal = True
@@ -172,7 +177,8 @@ def gn(chromosome_length):
     plot_graph(girvan_best, MA=False)
 
 if __name__ == '__main__':
-    CommunityPartion, chromosome_length = MA()
+    simulated_annealing = False
+    CommunityPartion, chromosome_length = MA(simulated_annealing)
     plot_graph(CommunityPartion, MA=True)
     NMI(CommunityPartion, chromosome_length, MA=True)
     print("--------------------------------------------")
